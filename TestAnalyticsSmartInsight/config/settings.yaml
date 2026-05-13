@@ -1,0 +1,26 @@
+base_url: "https://eis-analytics-v3-01.escloud.co.uk"
+product_filters: []
+run_name_patterns:
+  - "regression"
+batch_ids: []
+batch_discovery:
+  enabled: true
+  page_size: 20
+  max_pages: 10
+  name_patterns:
+    - "test regression"
+run_selection:
+  include_improper_runs: false
+  page_size: 100000
+bugs:
+  include_bug_counts: true
+capture_mode: "all_nightly_runs_in_sprint"
+sprint:
+  name: "Sprint-XX" ## TODO add sprint number logic
+  start: "2026-05-01"
+  end: "2026-05-14"
+output:
+  workbook_path: "data/output/Sprint-XX-TestAnalytics.xlsx"
+claude:
+  enabled: false
+  model: "claude"

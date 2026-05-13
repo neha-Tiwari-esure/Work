@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "1e26c9cb-210a-4893-9031-939c1b8e42f6",
+		"name": "TestAnalytics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46227564"
+	},
+	"item": [
+		{
+			"name": "ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "sessionid",
+						"value": "3ffujr7ol"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "Cookie",
+						"value": "JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					}
+				],
+				"url": {
+					"raw": "https://eis-analytics-v3-01.escloud.co.uk/api/batches/names?id=d0b5b9a1-4039-11f1-84d2-41aed19e833d",
+					"protocol": "https",
+					"host": [
+						"eis-analytics-v3-01",
+						"escloud",
+						"co",
+						"uk"
+					],
+					"path": [
+						"api",
+						"batches",
+						"names"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "d0b5b9a1-4039-11f1-84d2-41aed19e833d"
+						}
+					]
+				},
+				"description": "Test Analytics API call"
+			},
+			"response": []
+		},
+		{
+			"name": "Aggregations",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "sessionid",
+						"value": "3ffujr7ol"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "Cookie",
+						"value": "JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					}
+				],
+				"url": {
+					"raw": "https://eis-analytics-v3-01.escloud.co.uk/api/runs/babe29a8-404d-11f1-84d2-855d0da06c64",
+					"protocol": "https",
+					"host": [
+						"eis-analytics-v3-01",
+						"escloud",
+						"co",
+						"uk"
+					],
+					"path": [
+						"api",
+						"runs",
+						"babe29a8-404d-11f1-84d2-855d0da06c64"
+					]
+				},
+				"description": "Generated from cURL: curl 'https://eis-analytics-v3-01.escloud.co.uk/api/runs/babe29a8-404d-11f1-84d2-855d0da06c64' \\\n  -H 'accept: application/json' \\\n  -H 'accept-language: en-US,en;q=0.9' \\\n  -H 'authorization: Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre' \\\n  -b 'JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre' \\\n  -H 'priority: u=1, i' \\\n  -H 'referer: https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64' \\\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: empty' \\\n  -H 'sec-fetch-mode: cors' \\\n  -H 'sec-fetch-site: same-origin' \\\n  -H 'sessionid: 3ffujr7ol' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'"
+			},
+			"response": []
+		},
+		{
+			"name": "Breif",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "sessionid",
+						"value": "3ffujr7ol"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "Cookie",
+						"value": "JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					}
+				],
+				"url": {
+					"raw": "https://eis-analytics-v3-01.escloud.co.uk/api/runs/babe29a8-404d-11f1-84d2-855d0da06c64/brief",
+					"protocol": "https",
+					"host": [
+						"eis-analytics-v3-01",
+						"escloud",
+						"co",
+						"uk"
+					],
+					"path": [
+						"api",
+						"runs",
+						"babe29a8-404d-11f1-84d2-855d0da06c64",
+						"brief"
+					]
+				},
+				"description": "Generated from cURL: curl 'https://eis-analytics-v3-01.escloud.co.uk/api/runs/babe29a8-404d-11f1-84d2-855d0da06c64/brief' \\\n  -H 'accept: application/json' \\\n  -H 'accept-language: en-US,en;q=0.9' \\\n  -H 'authorization: Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre' \\\n  -b 'JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre' \\\n  -H 'priority: u=1, i' \\\n  -H 'referer: https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64' \\\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: empty' \\\n  -H 'sec-fetch-mode: cors' \\\n  -H 'sec-fetch-site: same-origin' \\\n  -H 'sessionid: 3ffujr7ol' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'"
+			},
+			"response": []
+		},
+		{
+			"name": "Bugs",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "sessionid",
+						"value": "3ffujr7ol"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
+					},
+					{
+						"key": "Cookie",
+						"value": "JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre"
+					}
+				],
+				"url": {
+					"raw": "https://eis-analytics-v3-01.escloud.co.uk/api/runs/babe29a8-404d-11f1-84d2-855d0da06c64/bugs",
+					"protocol": "https",
+					"host": [
+						"eis-analytics-v3-01",
+						"escloud",
+						"co",
+						"uk"
+					],
+					"path": [
+						"api",
+						"runs",
+						"babe29a8-404d-11f1-84d2-855d0da06c64",
+						"bugs"
+					]
+				},
+				"description": "Generated from cURL: curl 'https://eis-analytics-v3-01.escloud.co.uk/api/runs/babe29a8-404d-11f1-84d2-855d0da06c64/bugs' \\\n  -H 'accept: application/json' \\\n  -H 'accept-language: en-US,en;q=0.9' \\\n  -H 'authorization: Bearer 0MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre' \\\n  -b 'JWT_REFRESH=xmw0uvk397y5CgDRjeL0eq42ODGB4rRhJbTekk1L; JWT_ACCESS=Bearer%200MuE6PjT8oplJa1xB1rp89ffWMd7HHmIp40Ftlre' \\\n  -H 'priority: u=1, i' \\\n  -H 'referer: https://eis-analytics-v3-01.escloud.co.uk/runs/details?id=babe29a8-404d-11f1-84d2-855d0da06c64' \\\n  -H 'sec-ch-ua: \"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"' \\\n  -H 'sec-ch-ua-mobile: ?0' \\\n  -H 'sec-ch-ua-platform: \"macOS\"' \\\n  -H 'sec-fetch-dest: empty' \\\n  -H 'sec-fetch-mode: cors' \\\n  -H 'sec-fetch-site: same-origin' \\\n  -H 'sessionid: 3ffujr7ol' \\\n  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36'"
+			},
+			"response": []
+		}
+	]
+}
