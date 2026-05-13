@@ -16,7 +16,7 @@ The MVP:
 Make sure this file contains a valid token:
 
 ```text
-/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight/.env
+.env
 ```
 
 Update this line when needed:
@@ -28,7 +28,7 @@ TEST_ANALYTICS_TOKEN=your_token_here
 ## Main run command
 
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 bash scripts/run.sh
 ```
 
@@ -37,7 +37,7 @@ bash scripts/run.sh
 If you want to run it manually without the wrapper script:
 
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 source .venv/bin/activate
 python src/main.py --config config/settings.yaml
 ```
@@ -49,7 +49,7 @@ You can now target one exact `run_name` from the command line.
 Example:
 
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 source .venv/bin/activate
 python src/main.py --config config/settings.yaml --run-name 'Regression_Claims_MOTOR'
 ```
@@ -61,7 +61,7 @@ If you pass one `--run-name` and do not pass `--output`, the script will automat
 You can now request all 3 names in one command and the script will create 3 separate workbook files automatically.
 
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 source .venv/bin/activate
 python src/main.py --config config/settings.yaml \
   --run-name 'Regression_Claims_MOTOR' \
@@ -96,7 +96,7 @@ python src/main.py --config config/settings.yaml --run-name 'Regression_Claims_M
 The workbook is currently configured to write here:
 
 ```text
-/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight/data/output/Sprint-XX-TestAnalytics.xlsx
+data/output/Sprint-XX-TestAnalytics.xlsx
 ```
 
 The output path is controlled by:
@@ -152,7 +152,7 @@ If that happens, refresh the virtual environment with a newer Python.
 2. Update `TEST_ANALYTICS_TOKEN`
 3. Run:
    ```bash
-   cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+   cd /path/to/TestAnalyticsSmartInsight
    bash scripts/run.sh
    ```
 4. Open the generated workbook in `data/output/`

@@ -97,20 +97,20 @@ Current local state:
 From the project folder:
 
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 bash scripts/setup.sh
 ```
 
 ## How to run it
 ### Default run
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 bash scripts/run.sh
 ```
 
 ### Direct Python run
 ```bash
-cd '/Users/Neha.Tiwari2/Work/TestAnalyticsSmartInsight'
+cd /path/to/TestAnalyticsSmartInsight
 source .venv/bin/activate
 python src/main.py --config config/settings.yaml
 ```
