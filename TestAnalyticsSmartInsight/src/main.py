@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import argparse
 import re
+import os
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from difflib import get_close_matches
 from pathlib import Path
 
@@ -88,6 +89,8 @@ def main() -> None:
     if not client.token:
         raise SystemExit("TEST_ANALYTICS_TOKEN is missing. Add it to .env before running.")
 
+    # ✅ Get sprint name safely
+    sprint_name = config.get("sprint", {}).get("name", "Sprint")
     patterns = config.get("run_name_patterns", ["nightly"])
     exact_run_names = args.run_name or config.get("exact_run_names", [])
     product_filters = config.get("product_filters", [])
@@ -99,6 +102,42 @@ def main() -> None:
     include_improper_runs = run_selection.get("include_improper_runs", False)
     page_size = run_selection.get("page_size", 100000)
     include_bug_counts = config.get("bugs", {}).get("include_bug_counts", True)
+
+
+    # ✅ Get sprint config
+    sprint_config = config.get("sprint", {})
+    manual_sprint_name = sprint_config.get("name")
+
+    # ✅ Base sprint reference (YOU SET THIS ONCE)
+    base_sprint_start = datetime(2026, 1, 28)
+    base_sprint_number = 2   # adjust to your org
+
+    # ✅ CASE 1 → manual sprint provided (e.g. Sprint-101)
+    if manual_sprint_name and "XX" not in manual_sprint_name:
+
+        sprint_name = manual_sprint_name
+        sprint_number = int(sprint_name.split("-")[1])
+
+        sprints_between = sprint_number - base_sprint_number
+
+        sprint_start_date = base_sprint_start + timedelta(days=14 * sprints_between)
+        sprint_end_date = sprint_start_date + timedelta(days=13)
+
+    # ✅ CASE 2 → auto calculate current sprint
+    else:
+        today = datetime.now()
+
+        days_passed = (today - base_sprint_start).days
+        sprint_number = base_sprint_number + (days_passed // 14)
+
+        sprint_name = f"Sprint-{sprint_number}"
+
+        sprint_start_date = base_sprint_start + timedelta(days=14 * (sprint_number - base_sprint_number))
+        sprint_end_date = sprint_start_date + timedelta(days=13)
+
+    print("✅ Sprint:", sprint_name)
+    print("✅ Start:", sprint_start_date.date())
+    print("✅ End:", sprint_end_date.date())
 
     if batch_discovery.get("enabled"):
         batch_page_size = int(batch_discovery.get("page_size", 20))
@@ -190,47 +229,80 @@ def main() -> None:
 
     sprint_rows = filter_runs_for_sprint(
         normalized_rows,
-        sprint_start=sprint["start"],
-        sprint_end=sprint["end"],
+        sprint_start=sprint_start_date.isoformat(),
+        sprint_end=sprint_end_date.isoformat(),
     )
 
-    if exact_run_names:
-        requested_lookup = {name.strip().lower(): name for name in exact_run_names if name.strip()}
-        grouped_rows: dict[str, list[dict]] = {requested_lookup[key]: [] for key in requested_lookup}
-        for row in sprint_rows:
-            run_name = str(row.get("run_name") or "")
-            requested_name = requested_lookup.get(run_name.strip().lower())
-            if requested_name:
-                grouped_rows[requested_name].append(row)
+    date_str = datetime.now().strftime("%Y%m%d")
+    output_dir = Path("data/output") / date_str
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-        if len(grouped_rows) == 1:
-            requested_name = next(iter(grouped_rows))
-            output_path = args.output or _build_output_path(base_output_path, requested_name)
-            rows_to_write = grouped_rows[requested_name]
-            write_workbook(rows_to_write, output_path)
-            if config.get("claude", {}).get("enabled"):
-                insight_text = generate_insights(rows_to_write)
-                Path(output_path).with_suffix(".insights.txt").write_text(insight_text, encoding="utf-8")
-            print(f"Workbook written to {output_path}")
-            print(f"Runs matched before sprint filtering: {len(normalized_rows)}")
-            print(f"Runs written for sprint window: {len(rows_to_write)}")
+# ✅ Create containers for each product
+    home_rows = []
+    motor_rows = []
+    app23_rows = []
+
+    for row in sprint_rows:
+
+        run_name = str(
+            row.get("name") or
+            row.get("run_name") or
+            ""
+        ).strip().lower()
+
+        print("RUN:", run_name)
+
+        if "home" in run_name:
+            home_rows.append(row)
+
+        elif "motor" in run_name:
+            motor_rows.append(row)
+
+        elif "app23" in run_name or "app_23" in run_name:
+            app23_rows.append(row)
+
         else:
-            total_written = 0
-            for requested_name, rows_to_write in grouped_rows.items():
-                output_path = _build_output_path(base_output_path, requested_name)
-                write_workbook(rows_to_write, output_path)
-                if config.get("claude", {}).get("enabled"):
-                    insight_text = generate_insights(rows_to_write)
-                    Path(output_path).with_suffix(".insights.txt").write_text(insight_text, encoding="utf-8")
-                print(f"Workbook written to {output_path} ({len(rows_to_write)} run(s))")
-                total_written += len(rows_to_write)
-            print(f"Runs matched before sprint filtering: {len(normalized_rows)}")
-            print(f"Total runs written for sprint window: {total_written}")
+            print("SKIPPED:", run_name)
 
-        _print_missing_run_name_diagnostics(exact_run_names, available_run_names)
-        return
 
-    write_workbook(sprint_rows, base_output_path)
+    
+    existing_files = os.listdir(output_dir)
+
+    seq_num = 0
+
+    for f in existing_files:
+        if not f.endswith(".xlsx"):
+            continue
+
+        parts = f.replace(".xlsx", "").split("_")
+
+    # ✅ Look for last part as number
+        last_part = parts[-1]
+
+        if last_part.isdigit() and len(last_part) == 3:
+            seq_num = max(seq_num, int(last_part))
+
+# ✅ increment for this run
+    seq_num += 1
+
+    seq = f"{seq_num:03d}"
+
+    if home_rows:
+        file_path = output_dir / f"{sprint_name}_Home_{date_str}_{seq}.xlsx"
+        write_workbook(home_rows, str(file_path))
+        print("✅ Created:", file_path)
+
+# ✅ Write MOTOR Excel
+    if motor_rows:
+        file_path = output_dir / f"{sprint_name}_Motor_{date_str}_{seq}.xlsx"
+        write_workbook(motor_rows, str(file_path))
+        print("✅ Created:", file_path)
+
+# ✅ Write APP23 Excel
+    if app23_rows:
+        file_path = output_dir / f"{sprint_name}_App23_{date_str}_{seq}.xlsx"
+        write_workbook(app23_rows, str(file_path))
+        print("✅ Created:", file_path)
 
     if config.get("claude", {}).get("enabled"):
         insight_text = generate_insights(sprint_rows)

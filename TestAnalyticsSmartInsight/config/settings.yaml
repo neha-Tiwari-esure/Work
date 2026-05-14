@@ -9,6 +9,7 @@ batch_discovery:
   max_pages: 10
   name_patterns:
     - "test regression"
+    - "upgrade"
 run_selection:
   include_improper_runs: false
   page_size: 100000
@@ -17,10 +18,10 @@ bugs:
 capture_mode: "all_nightly_runs_in_sprint"
 sprint:
   name: "Sprint-XX" ## TODO add sprint number logic
-  start: "2026-05-01"
+  start: "2026-04-01"
   end: "2026-05-14"
 output:
-  workbook_path: "data/output/Sprint-XX-TestAnalytics.xlsx"
+  workbook_path: "data/output/Sprint-XX-.xlsx"
 claude:
   enabled: false
   model: "claude"
