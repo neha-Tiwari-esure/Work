@@ -7,10 +7,24 @@
 - Investigate why `Regression_Claims_HOME` is not present in the currently discovered sprint batches, or confirm that its absence is expected.
 - Decide whether missing exact `run_name` values should keep producing empty workbooks or should fail the run.
 
-<!-- -------
-1. half working
-cleanup the sheet based on
-modify the workbook_writer.py to dump everything in one file -- write in next line
-sprint strat and end date -> 2 weeks window plan
+<!-- DONE -->
 
- -->
+ <!-- 
+ TODO: 18th May
+ Must have:
+ 1. Append the best of sprint to final file passed, failed, not analysed -- match the format based on existing @neha
+ 2. Create a groovy script for posting updates on slack? --> insight on pass% increased-decreased or constant @sandra
+ 3. Make extractions and data dumping faster @neha
+ 4. Accessing JIRA for defect linking @sandra
+
+ Good to have:
+ 1. Known failures --> do nothing || new failures --> highlight (not taggeg, tagged to a bug that is not closed)
+ 2. New Bugs --> critical errors 500/400/201 etc 
+ 3. Cost of the run/query --> Token usage 
+ 
+ Question: how can we use this info to help QAs analyse the failures quickly ?
+
+ must have --> when to run? env issue, known issue, pass % dropped 
+ 1. rerun failed tests and repeat the good to have 1-2
+
+  -->
