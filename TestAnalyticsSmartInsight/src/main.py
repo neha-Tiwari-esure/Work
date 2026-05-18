@@ -233,7 +233,7 @@ def main() -> None:
         sprint_end=sprint_end_date.isoformat(),
     )
 
-    date_str = datetime.now().strftime("%Y%m%d")
+    date_str = datetime.now().strftime("%Y-%m-%d")
     output_dir = Path("data/output") / date_str
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -289,19 +289,22 @@ def main() -> None:
 
     if home_rows:
         file_path = output_dir / f"{sprint_name}_Home_{date_str}_{seq}.xlsx"
-        write_workbook(home_rows, str(file_path))
+        best_home = max(home_rows, key=lambda x: x.get("pass_rate", 0)) if home_rows else None
+        write_workbook(home_rows, str(file_path), best_run=best_home)
         print("✅ Created:", file_path)
 
 # ✅ Write MOTOR Excel
     if motor_rows:
         file_path = output_dir / f"{sprint_name}_Motor_{date_str}_{seq}.xlsx"
-        write_workbook(motor_rows, str(file_path))
+        best_motor = max(motor_rows, key=lambda x: x.get("pass_rate", 0)) if motor_rows else None
+        write_workbook(motor_rows, str(file_path), best_run=best_motor)
         print("✅ Created:", file_path)
 
 # ✅ Write APP23 Excel
     if app23_rows:
         file_path = output_dir / f"{sprint_name}_App23_{date_str}_{seq}.xlsx"
-        write_workbook(app23_rows, str(file_path))
+        best_app23 = max(app23_rows, key=lambda x: x.get("pass_rate", 0)) if app23_rows else None
+        write_workbook(app23_rows, str(file_path), best_run=best_app23)
         print("✅ Created:", file_path)
 
     if config.get("claude", {}).get("enabled"):
