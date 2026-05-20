@@ -106,6 +106,10 @@ class AnalyticsApiClient:
         payload = self.get(f"api/runs/{run_id}/bugs")
         return payload if isinstance(payload, list) else []
 
+    def get_test_errors(self, test_id: str) -> list[Dict[str, Any]]:
+        payload = self.get(f"api/tests/{test_id}/errors")
+        return payload if isinstance(payload, list) else []
+
     def get_run_history(self, run_id: str, page_num: int = 1, page_size: int = 100) -> Dict[str, Any]:
         payload = self.get(
             f"api/runs/{run_id}/history",

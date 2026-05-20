@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, time
 from typing import Any, Dict, Iterable, Iterator, List, Mapping, Optional
+import re
 
 
 def looks_like_nightly(*texts: str, patterns: list[str]) -> bool:
@@ -107,9 +108,9 @@ def normalize_run_record(
 
     return {
         "product": product,
-        # "batch_id": run_data.get("batchId") or batch_id,
-        # "batch_name": run_data.get("batchName") or batch_name,
-        # "run_id": run_data.get("id") or run_data.get("runId"),
+        "batch_id": run_data.get("batchId") or batch_id,
+        "batch_name": run_data.get("batchName") or batch_name,
+        "run_id": run_data.get("id") or run_data.get("runId"),
         "run_name": run_data.get("name") or run_data.get("runName"),
         "run_status": run_data.get("status"),
         "execution_datetime": run_data.get("started") or run_data.get("dateTime") or run_data.get("executedAt"),
@@ -145,18 +146,48 @@ def normalize_run_record(
     }
 
 
+def parse_datetime_value(raw: Any, *, end_of_day: bool = False) -> Optional[datetime]:
+    if raw is None or raw == "":
+        return None
+
+    text = str(raw).strip()
+    if not text:
+        return None
+
+    if "T" not in text and " " not in text:
+        try:
+            base = datetime.fromisoformat(text)
+        except ValueError:
+            return None
+        if end_of_day:
+            return datetime.combine(base.date(), time.max)
+        return datetime.combine(base.date(), time.min)
+
+    normalized = text.replace("Z", "+00:00")
+    match = re.match(r"^(.*\.)(\d+)([+-]\d{2}:\d{2})$", normalized)
+    if match:
+        prefix, fraction, suffix = match.groups()
+        normalized = f"{prefix}{fraction[:6].ljust(6, '0')}{suffix}"
+
+    try:
+        dt = datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+
+    return dt.replace(tzinfo=None)
+
+
 def filter_runs_for_sprint(rows: Iterable[Dict[str, Any]], sprint_start: str, sprint_end: str) -> List[Dict[str, Any]]:
-    start = datetime.fromisoformat(sprint_start)
-    end = datetime.fromisoformat(sprint_end)
+    start = parse_datetime_value(sprint_start)
+    end = parse_datetime_value(sprint_end, end_of_day=True)
+    if start is None or end is None:
+        return []
+
     result: List[Dict[str, Any]] = []
     for row in rows:
-        raw = row.get("execution_datetime")
-        if not raw:
+        dt = parse_datetime_value(row.get("execution_datetime"))
+        if dt is None:
             continue
-        try:
-            dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
-        except ValueError:
-            continue
-        if start <= dt.replace(tzinfo=None) <= end:
+        if start <= dt <= end:
             result.append(row)
     return result

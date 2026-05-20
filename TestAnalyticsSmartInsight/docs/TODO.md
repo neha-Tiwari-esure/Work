@@ -12,19 +12,21 @@
  <!-- 
  TODO: 18th May
  Must have:
- 1. Append the best of sprint to final file passed, failed, not analysed -- match the format based on existing @neha
+ 1. Append the best of sprint to final file passed, failed, not analysed -- match the format based on existing @neha DONE
  2. Create a groovy script for posting updates on slack? --> insight on pass% increased-decreased or constant @sandra
  3. Make extractions and data dumping faster @neha
- 4. Accessing JIRA for defect linking @sandra
+ 4. Accessing JIRA for defect linking @sandra 
 
  Good to have:
- 1. Known failures --> do nothing || new failures --> highlight (not taggeg, tagged to a bug that is not closed)
- 2. New Bugs --> critical errors 500/400/201 etc 
+ 1. Known failures --> do nothing || new failures --> highlight (not taggeg, tagged to a bug that is not closed) 
+ 2. Capture log for New Bugs --> critical errors 500/400/201 etc @neha DONE
  3. Cost of the run/query --> Token usage 
  
  Question: how can we use this info to help QAs analyse the failures quickly ?
 
  must have --> when to run? env issue, known issue, pass % dropped 
  1. rerun failed tests and repeat the good to have 1-2
+
+ 1: extract log? yes
 
   -->

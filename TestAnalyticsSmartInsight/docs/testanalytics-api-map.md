@@ -215,6 +215,28 @@ These were not in the exported collection, but the UI clearly calls them and the
 - Purpose:
   - optional deep drill-down, not needed for the sprint workbook MVP
 
+### 9. Test-level errors for a failed test
+- Method: `GET`
+- Endpoint: `/api/tests/{test_id}/errors`
+- Purpose:
+  - fetch detailed error rows for a specific failed test from the run brief list
+- Important note:
+  - the docs page curl shown for `/api/errors/{id}` is not the useful call for this workflow
+  - the working request pattern is `GET /api/tests/{test_id}/errors` with `Authorization: Bearer <token>`
+- Live payload shape confirmed from Postman/browser execution:
+  ```json
+  [
+    {
+      "id": "<error_uuid>",
+      "testId": "<test_uuid>",
+      "ord": 0,
+      "message": "<error summary>",
+      "stackTrace": "<stack trace>",
+      "bugs": ["<linked bug>"]
+    }
+  ]
+  ```
+
 ## Practical request dependency chain for this project
 1. Start with configured batch ids or discovered sprint batches
 2. Resolve batch names via `GET /api/batches/names?id=<batch_id>`

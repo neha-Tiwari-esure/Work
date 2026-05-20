@@ -17,7 +17,7 @@ bugs:
   include_bug_counts: true
 capture_mode: "all_nightly_runs_in_sprint"
 sprint:
-  name: "Sprint-XX" ## TODO add sprint number logic
+  name: "Sprint-XX"
   start: "2026-04-01"
   end: "2026-05-14"
 output:
