@@ -23,6 +23,27 @@ from transform.normalize_runs import (
     normalize_run_record,
 )
 
+# load_dotenv()
+
+# def send_to_slack_bot(message):
+#     token = os.getenv("SLACK_BOT_TOKEN")
+#     channel = os.getenv("SLACK_CHANNEL")
+
+#     url = "https://slack.com/api/chat.postMessage"
+
+#     headers = {
+#         "Authorization": f"Bearer {token}",
+#         "Content-Type": "application/json"
+#     }
+
+#     payload = {
+#         "channel": channel,
+#         "text": message
+#     }
+
+#     response = requests.post(url, headers=headers, json=payload)
+
+#     print(response.json())
 
 def load_config(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
@@ -292,6 +313,20 @@ def main() -> None:
         best_home = max(home_rows, key=lambda x: x.get("pass_rate", 0)) if home_rows else None
         write_workbook(home_rows, str(file_path), best_run=best_home)
         print("✅ Created:", file_path)
+
+    # if home_rows:
+    #     file_path = output_dir / f"{sprint_name}_Home_{date_str}_{seq}.xlsx"
+    #     best_home = max(home_rows, key=lambda x: x.get("pass_rate", 0))
+    #     write_workbook(home_rows, str(file_path), best_run=best_home)
+    #     print("✅ Created:", file_path)
+        # # ✅ Slack message
+        # message = (
+        #     f"✅ {sprint_name} best HOME run: "
+        #     f"{best_home.get('pass_rate', 0)}% pass rate "
+        #     f"({best_home.get('passed', 0)}/{best_home.get('total_tests', 0)} tests passed)."
+        # )
+        # print("SLACK MESSAGE:", message)
+    # send_to_slack_bot(message)
 
 # ✅ Write MOTOR Excel
     if motor_rows:
