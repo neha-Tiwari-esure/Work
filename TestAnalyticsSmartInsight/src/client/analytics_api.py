@@ -67,6 +67,29 @@ class AnalyticsApiClient:
             return []
         return [self._flatten_batch_item(item) for item in data]
 
+    def get_runs(
+        self,
+        *,
+        include_improper_runs: bool = False,
+        page_num: int = 1,
+        page_size: int = 100000,
+        batch_id: str | None = None,
+    ) -> List[Dict[str, Any]]:
+        params: Dict[str, Any] = {
+            "page[num]": page_num,
+            "page[size]": page_size,
+        }
+        if batch_id:
+            params["batchId"] = batch_id
+        if not include_improper_runs:
+            params["isProper"] = "true"
+
+        payload = self.get("api/runs", params=params)
+        data = payload.get("data") if isinstance(payload, dict) else None
+        if not isinstance(data, list):
+            return []
+        return [self._flatten_run_item(item) for item in data]
+
     def get_runs_for_batch(
         self,
         batch_id: str,
@@ -75,19 +98,12 @@ class AnalyticsApiClient:
         page_num: int = 1,
         page_size: int = 100000,
     ) -> List[Dict[str, Any]]:
-        payload = self.get(
-            "api/runs",
-            params={
-                "batchId": batch_id,
-                "page[num]": page_num,
-                "page[size]": page_size,
-                "isProper": str(not include_improper_runs).lower(),
-            },
+        return self.get_runs(
+            include_improper_runs=include_improper_runs,
+            page_num=page_num,
+            page_size=page_size,
+            batch_id=batch_id,
         )
-        data = payload.get("data") if isinstance(payload, dict) else None
-        if not isinstance(data, list):
-            return []
-        return [self._flatten_run_item(item) for item in data]
 
     def get_run(self, run_id: str) -> Dict[str, Any]:
         payload = self.get(f"api/runs/{run_id}")

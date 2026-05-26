@@ -11,7 +11,7 @@ batch_discovery:
     - "test regression"
     - "upgrade"
 run_selection:
-  include_improper_runs: false
+  include_improper_runs: true
   page_size: 100000
 bugs:
   include_bug_counts: true

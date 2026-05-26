@@ -54,6 +54,31 @@ source .venv/bin/activate
 python src/main.py --config config/settings.yaml --run-name 'Regression_Claims_MOTOR'
 ```
 
+## Run for a specific sprint
+
+If you want to target a sprint directly from the command line, pass `--sprint-name`.
+The script will calculate the 14-day sprint window from the built-in base sprint reference.
+
+Example:
+
+```bash
+cd /path/to/TestAnalyticsSmartInsight
+source .venv/bin/activate
+python src/main.py --config config/settings.yaml --sprint-name 'Sprint-9'
+```
+
+You can combine it with an exact run name too:
+
+```bash
+python src/main.py --config config/settings.yaml --sprint-name 'Sprint-9' --run-name 'REGRESSION_CLAIMS_MOTOR'
+```
+
+If you want to force exact dates from the command line, use:
+
+```bash
+python src/main.py --config config/settings.yaml --sprint-name 'Sprint-9' --sprint-start '2026-05-06' --sprint-end '2026-05-19'
+```
+
 If you pass one `--run-name` and do not pass `--output`, the script will automatically create a separate workbook name by appending the run name to the configured output filename.
 
 ## Run the 3 requested outputs
@@ -93,13 +118,7 @@ python src/main.py --config config/settings.yaml --run-name 'Regression_Claims_M
 
 ## Output location
 
-The workbook is currently configured to write here:
-
-```text
-data/output/Sprint-XX-TestAnalytics.xlsx
-```
-
-The output path is controlled by:
+The workbook base path is configured in:
 
 ```text
 config/settings.yaml
@@ -109,8 +128,11 @@ Current config key:
 
 ```yaml
 output:
-  workbook_path: "data/output/Sprint-XX-TestAnalytics.xlsx"
+  workbook_path: "data/output/workbook.xlsx"
 ```
+
+The main script now writes dated, product-specific workbooks under `data/output/YYYY-MM-DD/`.
+The config value is mainly used as a base path for optional insight output and compatibility with older flow assumptions.
 
 ## Expected success message
 
@@ -150,12 +172,16 @@ If that happens, refresh the virtual environment with a newer Python.
 
 1. Open `.env`
 2. Update `TEST_ANALYTICS_TOKEN`
-3. Run:
+3. Run either the current sprint automatically:
    ```bash
    cd /path/to/TestAnalyticsSmartInsight
    bash scripts/run.sh
    ```
-4. Open the generated workbook in `data/output/`
+   or a specific sprint:
+   ```bash
+   python src/main.py --config config/settings.yaml --sprint-name 'Sprint-9'
+   ```
+4. Open the generated workbook in `data/output/YYYY-MM-DD/`
 
 ## Useful files
 
